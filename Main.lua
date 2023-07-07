@@ -51,7 +51,7 @@ function love.load()
     -- newent:sendToBuffer(Entities)
     -- newent:setSprite(Assets.placeholder)
     UI = UIContainer(vector.new(100, 100), vector.new(400, 200), true, true)
-    UI:AppendElement(UITextComponent(vector.new(2, 2), "Hi!", Color(1, 1, 1, 1), 200))
+    UI:AppendElement(UITextComponent(vector.new(10, 2), "Hi!", Color(1, 1, 1, 1), 200))
 end
 
 function love.keypressed(key)
