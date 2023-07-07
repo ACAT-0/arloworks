@@ -143,6 +143,11 @@
         "CustomGameOver",
         "Encyclopedia",
         "DetailedRespawn",
-        "MinimapAPI"
+        "MinimapAPI",
+        "love",
+        "class_commons"
+    ],
+    "diagnostics.disable": [
+        "deprecated"
     ]
 }

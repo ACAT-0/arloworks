@@ -24,10 +24,12 @@ Players = {}
 CollisionEntities = {}
 camera = gamera.new(0, 0, 1, 1)
 UI = {}
+TargetWindowSize = vector.new(800, 450)
 
 
 
 function love.load()
+    debuginfo[1] = 0
     CameraMoveRate = 0.05
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.window.setMode(0, 0, { resizable = false }) -- sets window to monitor display height/width etc.
@@ -51,22 +53,32 @@ function love.load()
     -- newent:sendToBuffer(Entities)
     -- newent:setSprite(Assets.placeholder)
     UI = UIContainer(vector.new(100, 100), vector.new(400, 200), true, true)
-    UI:AppendElement(UITextComponent(vector.new(10, 2), "Hi!", Color(1, 1, 1, 1), 200))
+    UI:AppendElement(UITextComponent(vector.new(2, 2), "Hi!", Color(1, 1, 1, 1), 200))
+    UI:AppendElement(UITextComponent(vector.new(80, 69), "This is a text component. It works pretty well",
+        Color(1, 1, 1, 1), 200))
+    local button = UIButtonComponent(vector.new(10, 30), vector.new(60, 20), Color(1, 0, 0, 1),
+        function() love.event.quit() end)
+    button:AppendElement(UITextComponent(vector.new(26, 10), "Quit", Color(1, 1, 1, 1), 200))
+    UI:AppendElement(button)
 end
 
 function love.keypressed(key)
     keyHandler(key)
 end
 
+function love.update(dt)
+    UI:Update(dt, TargetWindowSize)
+end
+
 function love.draw()
     -- hey bbgrill
     local width, height = love.window.getMode()
     love.graphics.print(boolToString(setdebugge), 0, 0)
-    love.graphics.scale(width / 800, height / 450);
+    love.graphics.scale(width / TargetWindowSize.x, height / TargetWindowSize.y);
     love.graphics.print(boolToString(setdebugge), 0, 0)
     love.graphics.print(tostring(debuginfo[1]), 0, 30)
 
     draw(drawbuffer, CollisionEntities, camera);
     drawbuffer = {}
-    UI:Draw()
+    UI:Draw(TargetWindowSize)
 end

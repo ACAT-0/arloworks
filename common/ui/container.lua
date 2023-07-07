@@ -19,7 +19,7 @@ function UIContainer(position, size, fill, draw)
         end
     end
 
-    function group:Draw()
+    function group:Draw(scale)
         if (draw == true) then
             local string = "fill";
             if (self.fill == false) then
@@ -30,7 +30,13 @@ function UIContainer(position, size, fill, draw)
             love.graphics.setColor(1, 1, 1, 1)
         end
         for i, element in pairs(self.children) do
-            element:Draw(self)
+            element:Draw(self, self.position, scale)
+        end
+    end
+
+    function group:Update(dt, scale)
+        for i, element in pairs(self.children) do
+            element:Update(self, dt, scale)
         end
     end
 
